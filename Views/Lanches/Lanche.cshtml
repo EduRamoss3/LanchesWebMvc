@@ -1,0 +1,23 @@
+﻿@model Lanches.Models.Lanche
+@{
+    ViewData["Title"] = @Html.DisplayFor(modelItem => Model.Nome);
+}
+@{
+    if(Model is null)
+    {
+        <h1>Lanche não encontrado!</h1>
+    }
+    else
+    {
+        <h1>
+            @Html.DisplayFor(modelItem => Model.Nome)
+        </h1>
+        <img src="@Html.DisplayFor(modelItem => Model.ImagemThumbnailUrl)" />
+        <p>@Html.DisplayFor(modelItem => Model.DescricaoCurta)</p>
+        <p>@Html.DisplayFor(modelItem => Model.DescricaoDetalhada)</p>
+        <h3>@Html.DisplayFor(modelItem => Model.Preco)</h3>
+        <input type="submit" value="Adicionar ao carrinho" />
+    }
+}
+   
+
