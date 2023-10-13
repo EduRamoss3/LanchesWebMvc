@@ -3,21 +3,31 @@
     ViewData["Title"] = @Html.DisplayFor(modelItem => Model.Nome);
 }
 @{
-    if(Model is null)
+    if (Model is null)
     {
         <h1>Lanche não encontrado!</h1>
     }
     else
     {
-        <h1>
-            @Html.DisplayFor(modelItem => Model.Nome)
-        </h1>
-        <img src="@Html.DisplayFor(modelItem => Model.ImagemThumbnailUrl)" />
-        <p>@Html.DisplayFor(modelItem => Model.DescricaoCurta)</p>
-        <p>@Html.DisplayFor(modelItem => Model.DescricaoDetalhada)</p>
-        <h3>@Html.DisplayFor(modelItem => Model.Preco)</h3>
-        <input type="submit" value="Adicionar ao carrinho" />
+        <div class="container">
+            <div class="row">
+                <div class="card">
+                    <div class="text-center">
+                        <img src="@Model.ImagemThumbnailUrl" class="img-fluid" width="400" height="400" alt="imagemLanche">
+                    </div>
+                    <div class="card-block">
+                        <h2 class="card-title">@Model.Nome</h2>
+                        <p class="card-text"><h5>@Model.DescricaoDetalhada</h5></p>
+                        <p class="btn btn-group align-content-lg-end">
+                            <a asp-controller="Lanches" asp-action="Index" class="btn btn-outline-info">Ver todos os lanches</a>
+                            <a class="btn btn-primary" id="cartButton" asp-controller="CarrinhoCompra" 
+                            asp-action="AdicionarItemNoCarrinhoCompra" asp-route-lancheId="@Model.LancheId">Adicionar @Model.Nome ao carrinho</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 }
-   
+
 

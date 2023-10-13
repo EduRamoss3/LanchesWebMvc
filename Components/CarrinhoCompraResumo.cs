@@ -14,7 +14,7 @@ namespace Lanches.Components
         public IViewComponentResult Invoke()
         {
             var itens = _carrinhoCompra.GetCarrinhoCompraItems();
-            _carrinhoCompra.CarrinhoCompraItems = itens;
+            _carrinhoCompra.ListCompraItems = itens;
             var carrinhoCompraVM = new CarrinhoCompraViewModel
             {
                 CarrinhoCompra = _carrinhoCompra,

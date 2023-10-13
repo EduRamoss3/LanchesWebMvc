@@ -2,9 +2,9 @@
 
 namespace Lanches.Models
 {
-    public class CarrinhoCompraItem
+    public class CompraItems
     {
-        public int CarrinhoCompraItemId { get; set; }
+        public int CompraItemsId { get; set; }
         public Lanche Lanche { get; set; }
         public int Quantidade { get; set; }
         [StringLength(200)]

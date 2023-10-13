@@ -9,6 +9,7 @@
             <thead>
                 <tr>
                     <th>Quantidade</th>
+                    <th>Nome</th>
                     <th>Lanche</th>
                     <th class="text-right">Preço</th>
                     <th class="text-right">Subtotal</th>
@@ -16,12 +17,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.CarrinhoCompra.CarrinhoCompraItems)
+                @foreach (var item in Model.CarrinhoCompra.ListCompraItems)
                 {
                     <tr>
                         <td class="text-center">@item.Quantidade</td>
                         <td class="text-left">@item.Lanche.Nome</td>
-                        <td class="text-right" @item.Lanche.Preco.ToString("c")></td>
+                        <td class="text-center">
+                            <img src="@item.Lanche.ImagemThumbnailUrl"
+                                 alt="thumbLanche" width="50" height="40" />
+                        </td>
+                        <td class="text-right"> @item.Lanche.Preco.ToString("c")</td>
                         <td class="text-right">
                             @((item.Quantidade * item.Lanche.Preco).ToString("c"))
                         </td>
@@ -45,7 +50,7 @@
             <div class="btn-group">
                 <a class="btn btn-sucess" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
                 &nbsp;&nbsp;&nbsp;
-                <a class="btn btn-primary" asp-controller="Lanche" asp-action="Index">Continuar comprando</a>
+                <a class="btn btn-primary" asp-controller="Lanches" asp-action="Index">Continuar comprando</a>
             </div>
         </div>
 

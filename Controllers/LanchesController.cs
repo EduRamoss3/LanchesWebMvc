@@ -2,6 +2,7 @@
 using Lanches.Repositories.Interfaces;
 using Lanches.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 
 namespace Lanches.Controllers
 {
@@ -11,7 +12,7 @@ namespace Lanches.Controllers
         public LanchesController(ILancheRepository repository) {
             _repository = repository;
         }
-        public IActionResult Lanche(int id)
+        public IActionResult Lanche(int id) // Mais detalhes
         {
             var lanche = _repository.GetLancheById(id);
             return View(lanche);
@@ -25,18 +26,21 @@ namespace Lanches.Controllers
                 lanches = _repository.Lanches.OrderBy(l => l.LancheId);
                 categoriaAtual = "Todos os lanches";
             }
-            else
+            else 
             {
-                if(string.Equals("Normal", categoria, StringComparison.OrdinalIgnoreCase)){
-                    lanches = _repository
-                        .Lanches.Where(l => l.Categoria.CategoriaNome.Equals("Normal"))
-                        .OrderBy(l => l.Nome);
+                char firstLetter = categoria.ToUpper()[0];
+                string newCategoria = categoria.Replace(categoria[0], firstLetter); 
+             
+                var fCategory = _repository.Categori.FirstOrDefault(c => c.CategoriaNome == newCategoria);
+                if(fCategory is not null)
+                {
+                    lanches = _repository.Lanches.Where(l => l.Categoria == fCategory).OrderBy(l => l.Nome);
+                    categoriaAtual = fCategory.CategoriaNome;
                 }
                 else
                 {
-                    lanches = _repository
-                        .Lanches.Where(l => l.Categoria.CategoriaNome.Equals("Natural"))
-                        .OrderBy(l => l.Nome);
+                    lanches = _repository.Lanches.OrderBy(l => l.LancheId);
+                    categoriaAtual = "Todos os lanches";
                 }
             }
             LancheListViewModel lancheListViewModel = new LancheListViewModel
